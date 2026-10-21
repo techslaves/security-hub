@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security Hub | OWASP Top 10 for LLM &amp; EU NIS 2 Compliance</title>
+  <meta name="description" content="Dedicated cybersecurity platform featuring two independent standards: OWASP Top 10 for LLM Applications (2025 Edition) and the EU NIS 2 Directive with CyberFundamentals (CyFun® 2025) Self-Assessment." />
+  <meta name="keywords" content="OWASP LLM Top 10, NIS 2 Directive, EU 2022/2555, CyberFundamentals, CyFun 2025, CCB, AI Security, Cybersecurity Compliance" />
+  <meta property="og:title" content="Security Hub: OWASP LLM Top 10 &amp; EU NIS 2 Compliance" />
+  <meta property="og:description" content="Independent security frameworks: OWASP Top 10 for LLMs and EU NIS 2 / CyFun 2025." />
+  <meta property="og:type" content="website" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-cyan-500/20 selection:text-cyan-900">
+
+  <!-- Soft Ambient Glow Background Accents -->
+  <div id="ambient-cyan" class="fixed top-0 left-1/4 w-96 h-96 bg-cyan-200/50 rounded-full blur-3xl pointer-events-none -z-10 transition-opacity duration-500"></div>
+  <div id="ambient-blue" class="fixed top-1/3 right-10 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl pointer-events-none -z-10 transition-opacity duration-500"></div>
+  <div id="ambient-amber" class="fixed top-10 left-1/3 w-96 h-96 bg-amber-200/40 rounded-full blur-3xl pointer-events-none -z-10 opacity-0 transition-opacity duration-500"></div>
+
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="#" class="flex items-center gap-2.5">
+          <div id="brand-icon-box" class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-600 p-0.5 flex items-center justify-center shadow-sm transition-transform hover:scale-105">
+            <div class="w-full h-full bg-white rounded-[10px] flex items-center justify-center shadow-inner">
+              <svg id="brand-icon-svg" class="w-5 h-5 text-cyan-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
+                <path d="M12 8v4M12 16h.01"/>
+              </svg>
+            </div>
+          </div>
+          <div class="leading-none hidden sm:block">
+            <span id="brand-subtitle" class="text-[11px] uppercase font-bold tracking-widest text-cyan-700 block">Security Hub</span>
+            <span id="brand-title" class="text-base font-extrabold text-slate-900 tracking-tight">OWASP Top 10 LLM</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- MAIN FRAMEWORK SWITCHER PILLS -->
+      <div class="flex items-center bg-slate-200/70 p-1 rounded-2xl border border-slate-300/70 shadow-inner">
+        <button
+          id="btn-switch-owasp"
+          class="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 bg-white text-cyan-800 shadow-sm border border-slate-200"
+        >
+          <svg class="w-4 h-4 text-cyan-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>OWASP Top 10 LLM <span class="hidden md:inline font-mono font-medium opacity-80">(2025)</span></span>
+        </button>
+        <button
+          id="btn-switch-nis2"
+          class="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900"
+        >
+          <svg class="w-4 h-4 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 0117.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001A11.954 11.954 0 0110 1.944z" clip-rule="evenodd"/></svg>
+          <span>EU NIS 2 &amp; CyFun® <span class="hidden md:inline font-mono font-medium opacity-80">(2025)</span></span>
+        </button>
+      </div>
+
+      <!-- Right Controls -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <a
+          id="external-link-btn"
+          href="https://genai.owasp.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition border border-slate-300 shadow-sm"
+        >
+          <span id="external-link-label">genai.owasp.org</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <button
+          id="theme-toggle"
+          class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-200/80 transition border border-slate-300/80 bg-white shadow-sm"
+          title="Toggle High Contrast / Dark Mode"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================== -->
+  <!-- VIEW 1: OWASP TOP 10 FOR LLM APPLICATIONS (2025)               -->
+  <!-- ============================================================== -->
+  <main id="view-owasp" class="framework-view">
+    
+    <!-- Hero Section: OWASP -->
+    <section class="relative pt-14 pb-20 overflow-hidden border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 text-cyan-800 text-xs font-mono font-semibold mb-6 border border-cyan-200">
+          <span class="w-2 h-2 rounded-full bg-cyan-600 animate-pulse"></span>
+          OWASP Top 10 for LLM Applications v2.0 (November 2024 / 2025 Edition)
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 max-w-4xl mx-auto leading-tight sm:leading-tight">
+          OWASP Top 10 for <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-sky-600 to-blue-700">LLM Applications</span>
+        </h1>
+
+        <p class="mt-5 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+          The international standard for vulnerabilities affecting Large Language Model applications, autonomous agents, and RAG architectures.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a
+            href="#vulnerabilities"
+            class="px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm shadow-md shadow-cyan-600/25 hover:shadow-cyan-600/40 hover:scale-[1.02] transition-all flex items-center gap-2"
+          >
+            Explore Top 10 Risks
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </a>
+          <a
+            href="#audit-checklist"
+            class="px-6 py-3 rounded-xl bg-white text-slate-800 hover:bg-slate-50 font-bold text-sm border border-slate-300 shadow-sm transition-all flex items-center gap-2"
+          >
+            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            LLM Readiness Audit
+          </a>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <div class="text-3xl font-extrabold text-cyan-600 font-mono">10</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-semibold">Critical Threats</div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <div class="text-3xl font-extrabold text-sky-600 font-mono">4</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-semibold">New / Updated (2025)</div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <div class="text-3xl font-extrabold text-emerald-600 font-mono">40+</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-semibold">Real Scenarios</div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <div class="text-3xl font-extrabold text-blue-600 font-mono">80+</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-semibold">Mitigations</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's New in 2025 Section -->
+    <section id="whats-new" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-10 text-center sm:text-left flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-wider text-cyan-700 font-semibold block mb-1">Evolution of Threats</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">What's New in the 2025 Top 10</h2>
+        </div>
+        <p class="text-slate-600 text-sm max-w-md">
+          Reflecting modern RAG architectures, autonomous agent deployments, and cloud financial exposure.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-cyan-300 transition">
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-800 border border-cyan-200 font-semibold">LLM10 • Expanded</span>
+          <h3 class="text-base font-bold text-slate-900 mt-3 mb-2">Unbounded Consumption</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Expands beyond traditional DoS to address GPU resource depletion and catastrophic cloud bills from <strong>"Denial of Wallet" (DoW)</strong> attacks.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-sky-300 transition">
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-200 font-semibold">LLM08 • New Focus</span>
+          <h3 class="text-base font-bold text-slate-900 mt-3 mb-2">Vector &amp; Embedding Weaknesses</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Dedicated protection for Retrieval-Augmented Generation (RAG), vector databases, embedding inversion attacks, and cross-tenant context leaks.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-amber-300 transition">
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200 font-semibold">LLM07 • New Risk</span>
+          <h3 class="text-base font-bold text-slate-900 mt-3 mb-2">System Prompt Leakage</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Counters extraction of confidential system preambles, embedded credentials, role boundaries, and internal business logic.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-rose-300 transition">
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200 font-semibold">LLM06 • Expanded</span>
+          <h3 class="text-base font-bold text-slate-900 mt-3 mb-2">Excessive Agency</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Broadened for autonomous multi-agent systems, unvetted tool integrations, and permissions that enable destructive real-world actions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vulnerabilities Explorer Section -->
+    <section id="vulnerabilities" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-wider text-cyan-700 font-semibold block mb-1">Standard Vulnerabilities</span>
+          <h2 class="text-3xl font-extrabold text-slate-900">The OWASP Top 10 (2025)</h2>
+        </div>
+
+        <!-- Live Search Bar -->
+        <div class="relative w-full md:w-80">
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search risks, attacks, or mitigations..."
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 transition shadow-sm"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div id="category-filters" class="flex flex-wrap gap-2 mb-8">
+        <!-- Populated via JS -->
+      </div>
+
+      <!-- Vulnerability Cards Grid -->
+      <div id="vuln-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+
+    <!-- Architecture & Threat Modeling (Appendix 1) -->
+    <section id="architecture" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200">
+      <div class="mb-10 text-center sm:text-left">
+        <span class="text-xs font-mono uppercase tracking-wider text-cyan-700 font-semibold block mb-1">Appendix 1 Threat Model</span>
+        <h2 class="text-3xl font-extrabold text-slate-900">LLM Application Architecture &amp; Threat Map</h2>
+        <p class="mt-2 text-slate-600 text-sm max-w-2xl">
+          Map the OWASP Top 10 vulnerabilities directly onto your application components: from Ingress prompts to Model inference, Vector Databases, and Tool extensions.
+        </p>
+      </div>
+
+      <div id="architecture-diagram">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+
+    <!-- Interactive Security Readiness Checklist (OWASP) -->
+    <section id="audit-checklist" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-wider text-cyan-700 font-semibold block mb-1">OWASP LLM Defense</span>
+          <h2 class="text-3xl font-extrabold text-slate-900">LLM Security Controls Checklist</h2>
+          <p class="mt-1 text-slate-600 text-sm">
+            Audit your AI application against official OWASP mitigations. Progress is saved locally in your browser.
+          </p>
+        </div>
+
+        <!-- Audit Actions -->
+        <div class="flex items-center gap-3">
+          <button
+            id="export-checklist-btn"
+            class="px-4 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition flex items-center gap-2 shadow-sm"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Export LLM Report (.md)
+          </button>
+          <button
+            id="reset-checklist-btn"
+            class="px-3 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition border border-slate-300 shadow-sm"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Readiness Scorecard -->
+      <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm mb-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="w-full sm:w-2/3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-700">Defense Implementation Score</span>
+            <span id="audit-score" class="text-2xl font-black font-mono text-cyan-600">0%</span>
+          </div>
+          <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+            <div id="audit-progress" class="h-full bg-gradient-to-r from-cyan-600 to-emerald-500 transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="text-xs text-slate-500 sm:text-right">
+          Tip: Target <strong class="text-slate-900 font-bold">80%+</strong> readiness before deploying user-facing agentic LLMs to production.
+        </div>
+      </div>
+
+      <!-- Checklist Sections Container -->
+      <div id="checklist-container">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+
+    <!-- Leadership Recognition -->
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200 text-center">
+      <h3 class="text-xs font-mono uppercase tracking-widest text-slate-500 mb-2">Project Governance</h3>
+      <h2 class="text-2xl font-bold text-slate-900 mb-6">OWASP Top 10 for LLM Applications Leadership</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto text-left">
+        <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-sm">
+          <div class="font-bold text-slate-900 text-base">Steve Wilson</div>
+          <div class="text-xs text-cyan-700 font-semibold mt-0.5">Project Lead</div>
+          <a href="https://www.linkedin.com/in/wilsonsd/" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-500 hover:text-slate-800 mt-2 inline-flex items-center gap-1">
+            LinkedIn Profile &rarr;
+          </a>
+        </div>
+        <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-sm">
+          <div class="font-bold text-slate-900 text-base">Ads Dawson</div>
+          <div class="text-xs text-cyan-700 font-semibold mt-0.5">Technical Lead &amp; Vulnerability Entries Lead</div>
+          <a href="https://www.linkedin.com/in/adamdawson0/" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-500 hover:text-slate-800 mt-2 inline-flex items-center gap-1">
+            LinkedIn Profile &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- VIEW 2: EU NIS 2 DIRECTIVE & CYBERFUNDAMENTALS (CyFun® 2025)   -->
+  <!-- ============================================================== -->
+  <main id="view-nis2" class="framework-view hidden-view">
+    
+    <!-- Hero Section: NIS 2 -->
+    <section class="relative pt-14 pb-20 overflow-hidden border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-mono font-semibold mb-6 border border-amber-200">
+          <svg class="w-3.5 h-3.5 text-amber-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 0117.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001A11.954 11.954 0 0110 1.944z" clip-rule="evenodd"/></svg>
+          Directive (EU) 2022/2555 &bull; CyberFundamentals Framework (CyFun® 2025)
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 max-w-4xl mx-auto leading-tight sm:leading-tight">
+          EU NIS 2 Directive &amp; <span class="bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-orange-600 to-yellow-600">CyberFundamentals</span>
+        </h1>
+
+        <p class="mt-5 text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto font-normal leading-relaxed">
+          The official Belgian CCB CyberFundamentals (CyFun® 2025) self-assessment and conformity tool for organizations subject to the European NIS 2 cybersecurity legislation.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a
+            href="#nis2-classifier"
+            class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-md shadow-amber-500/25 hover:shadow-amber-500/40 hover:scale-[1.02] transition-all flex items-center gap-2"
+          >
+            <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Determine Assurance Level
+          </a>
+          <a
+            href="#cyfun-assessment"
+            class="px-6 py-3 rounded-xl bg-white text-slate-800 hover:bg-slate-50 font-bold text-sm border border-slate-300 shadow-sm transition-all flex items-center gap-2"
+          >
+            Start CyFun® Self-Assessment
+          </a>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <div class="text-3xl font-extrabold text-amber-600 font-mono">18 Sectors</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-semibold">Annex I &amp; II Scope</div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <div class="text-3xl font-extrabold text-orange-600 font-mono">3 Levels</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-semibold">Basic / Important / Essential</div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <div class="text-3xl font-extrabold text-emerald-600 font-mono">6 Functions</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-semibold">Govern &rarr; Recover</div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <div class="text-3xl font-extrabold text-rose-600 font-mono">24h / 72h</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-semibold">Reporting Deadlines</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scope, Penalties & Deadlines Section -->
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-10 text-center sm:text-left">
+        <span class="text-xs font-mono uppercase tracking-wider text-amber-700 font-semibold block mb-1">Legal Obligations</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">NIS 2 Regulatory Foundations</h2>
+        <p class="mt-2 text-slate-600 text-sm max-w-3xl">
+          The NIS 2 Directive establishes legal measures to boost the overall level of cybersecurity in the EU, imposing direct obligations on management and substantial non-compliance sanctions.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-mono uppercase text-amber-700 font-bold">Entity Classification</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Essential vs. Important</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              • <strong>Essential Entities (Annex I)</strong>: Energy, transport, banking, healthcare, drinking/waste water, digital infrastructure (cloud, DNS, IXP, CDNs), B2B ICT (MSPs/MSSPs), public administration, and space.<br><br>
+              • <strong>Important Entities (Annex II)</strong>: Postal/courier, waste management, chemicals, food production, manufacturing, digital providers (search, marketplaces), and research.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 text-[11px] text-slate-400">
+            Supervised under ex-ante (Essential) and ex-post (Important) supervisory regimes.
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-mono uppercase text-rose-700 font-bold">Fines &amp; Personal Liability</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Severe Statutory Sanctions</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              • <strong>Essential Entities</strong>: Fines up to <strong class="text-rose-700">€10,000,000 or 2% of total worldwide annual turnover</strong> (whichever is higher).<br><br>
+              • <strong>Important Entities</strong>: Fines up to <strong class="text-rose-700">€7,000,000 or 1.4% of total worldwide annual turnover</strong>.<br><br>
+              • <strong>Management Accountability</strong>: C-suite executives and board members can be held personally liable and temporarily banned from managerial functions.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 text-[11px] text-slate-400">
+            Article 20 &amp; 34 Directive (EU) 2022/2555.
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-mono uppercase text-sky-700 font-bold">Article 23 Notification</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Mandatory Incident Reporting</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              Entities must notify their designated national CSIRT or competent authority for any significant incident:<br><br>
+              • <strong>24 Hours</strong>: Early warning indicating whether caused by unlawful/malicious acts.<br>
+              • <strong>72 Hours</strong>: Official incident notification with initial assessment.<br>
+              • <strong>1 Month</strong>: Final report including root cause, impact, and mitigations.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 text-[11px] text-slate-400">
+            Applies to operational outages and significant security breaches.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Sector & Assurance Level Evaluator (CyFun-Selection) -->
+    <section id="nis2-classifier" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200">
+      <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 mb-6">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-wider text-amber-700 font-semibold block mb-1">Official CCB Methodology</span>
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-900">Determine Your NIS 2 Entity Type &amp; CyFun® Assurance Level</h3>
+            <p class="text-xs text-slate-500 mt-1">Based on the Centre for Cybersecurity Belgium (CCB) CyFun-Selection tool</p>
+          </div>
+          <div id="sector-classification-badge" class="self-start sm:self-auto">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">1. Select Your Economic Sector</label>
+            <select id="sector-select" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition shadow-inner">
+              <!-- Populated via JS -->
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">2. Organization Size</label>
+            <select id="org-size-select" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition shadow-inner">
+              <option value="3">Large Enterprise (&gt;250 staff or &gt;€50M annual turnover)</option>
+              <option value="2">Medium Organization (50-249 staff and &lt;€50M turnover)</option>
+              <option value="1">Small / Micro Entity (&lt;50 staff and &lt;€10M turnover)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Result Box -->
+        <div id="evaluator-result" class="mt-6 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- CyFun® 2025 Self-Assessment Tool -->
+    <section id="cyfun-assessment" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-mono font-semibold mb-2 border border-amber-200">
+            <span>CyberFundamentals Framework (CyFun® 2025)</span>
+          </div>
+          <h2 class="text-3xl font-extrabold text-slate-900">CyberFundamentals Self-Assessment Tool</h2>
+          <p class="mt-1 text-slate-600 text-sm max-w-2xl">
+            Audit your organization against the 6 core CyberFundamentals functions: <strong>Govern, Identify, Protect, Detect, Respond, Recover</strong>.
+          </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-3">
+          <button
+            id="export-cyfun-btn"
+            class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex items-center gap-2 shadow-sm"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Export CyFun Report (.md)
+          </button>
+          <button
+            id="reset-cyfun-btn"
+            class="px-3 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition border border-slate-300 shadow-sm"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Filters & Search -->
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-slate-200 shadow-sm mb-6">
+        <div class="flex flex-wrap items-center gap-2" id="cyfun-level-filters">
+          <button class="cyfun-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold border transition bg-amber-50 text-amber-900 border-amber-300 shadow-sm" data-level="all">All (218)</button>
+          <button class="cyfun-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold border transition bg-white text-slate-600 border-slate-300 hover:text-slate-900 hover:bg-slate-50" data-level="basic">Basic (34)</button>
+          <button class="cyfun-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold border transition bg-white text-slate-600 border-slate-300 hover:text-slate-900 hover:bg-slate-50" data-level="important">Important (133)</button>
+          <button class="cyfun-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold border transition bg-white text-slate-600 border-slate-300 hover:text-slate-900 hover:bg-slate-50" data-level="essential">Essential (218)</button>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="relative w-full sm:w-64">
+            <input
+              id="cyfun-search-input"
+              type="text"
+              placeholder="Search (e.g. GV.RR-04, MFA)..."
+              class="w-full pl-9 pr-3 py-1.5 rounded-lg bg-slate-50 border border-slate-300 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition"
+            />
+            <svg class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+
+          <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold text-amber-900 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200 shrink-0">
+            <input type="checkbox" id="key-measures-only-toggle" class="w-4 h-4 rounded text-amber-600 bg-white border-slate-300 focus:ring-amber-500" />
+            <span>Key Measures (KM) Only</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Scorecard -->
+      <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm mb-8 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-1">Target Assurance Level</span>
+          <div id="cyfun-selected-level-display" class="text-xl font-extrabold text-slate-900">All Levels</div>
+          <div class="text-xs text-slate-500 mt-1">Conformity Threshold: <span id="cyfun-target-score" class="font-mono text-amber-700 font-bold">≥ 3.0 / 5.0</span></div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-700">Average Maturity Score</span>
+            <span id="cyfun-score-display" class="text-2xl font-black font-mono text-amber-600">1.0 / 5.0</span>
+          </div>
+          <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+            <div id="cyfun-progress-bar" class="h-full bg-gradient-to-r from-amber-500 to-emerald-500 transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-600 border-l border-slate-200 pl-4">
+          <div class="font-bold text-slate-900 mb-1">Key Measures (KM) Compliance:</div>
+          <div id="km-compliance-status" class="text-slate-500">Rate key measures to verify threshold readiness.</div>
+        </div>
+      </div>
+
+      <!-- CyFun Controls Container -->
+      <div id="cyfun-controls-container" class="space-y-6">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+
+    <!-- CCB Authority Credits -->
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200 text-center">
+      <h3 class="text-xs font-mono uppercase tracking-widest text-slate-500 mb-2">Framework Authority</h3>
+      <h2 class="text-2xl font-bold text-slate-900 mb-4">Centre for Cybersecurity Belgium (CCB)</h2>
+      <p class="text-slate-600 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mb-6">
+        The CyberFundamentals Framework (CyFun®) is developed by the CCB to implement the statutory mandate for national and European cybersecurity certification under the NIS 2 Directive.
+      </p>
+      <div class="inline-flex gap-4">
+        <a href="https://cyfun.eu" target="_blank" rel="noopener noreferrer" class="text-xs text-amber-800 font-bold hover:text-amber-900 border border-amber-300 bg-amber-50 px-4 py-2 rounded-xl transition shadow-sm">
+          Official CyFun.eu Portal &rarr;
+        </a>
+        <a href="https://ccb.belgium.be" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-700 hover:text-slate-900 border border-slate-300 bg-white px-4 py-2 rounded-xl transition shadow-sm">
+          CCB Belgium Portal &rarr;
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- FOOTER                                                         -->
+  <!-- ============================================================== -->
+  <footer class="py-12 border-t border-slate-200 bg-white text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="text-slate-800 font-semibold">Security Hub: OWASP Top 10 for LLMs &amp; EU NIS 2 Compliance</p>
+        <p class="text-slate-500 mt-1">OWASP Top 10 licensed under CC BY-SA 4.0. CyberFundamentals Framework &copy; Centre for Cybersecurity Belgium (CCB).</p>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="https://genai.owasp.org" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-700 transition">genai.owasp.org</a>
+        <a href="https://cyfun.eu" target="_blank" rel="noopener noreferrer" class="hover:text-amber-700 transition">cyfun.eu</a>
+        <a href="https://github.com/OWASP/www-project-top-10-for-large-language-model-applications" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-700 transition">GitHub Project</a>
+        <a href="#" class="hover:text-slate-900 transition">Back to Top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal for OWASP Deep Dive -->
+  <div id="vuln-modal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 hidden">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden relative">
+      <button
+        id="modal-close-btn"
+        class="absolute top-5 right-5 z-10 w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition flex items-center justify-center border border-slate-200"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="modal-body" class="p-6 sm:p-8 overflow-y-auto"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs shadow-xl transition-all duration-300 opacity-0 translate-y-4 pointer-events-none flex items-center gap-2">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    Copied to clipboard!
+  </div>
+
+  <!-- Data & Scripts -->
+  <script src="data.js"></script>
+  <script src="nis2-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
